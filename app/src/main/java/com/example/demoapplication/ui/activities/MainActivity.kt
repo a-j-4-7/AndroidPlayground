@@ -1,4 +1,4 @@
-package com.example.demoapplication
+package com.example.demoapplication.ui.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -7,23 +7,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.demoapplication.R
 import com.example.demoapplication.data.models.DropDownResponse
 import com.example.demoapplication.network.RetrofitClient
-import com.example.demoapplication.network.RetrofitClient.Companion.invoke
-import com.google.gson.JsonArray
-import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
+import com.example.demoapplication.ui.fragments.EditFragment
+import com.example.demoapplication.ui.fragments.HomeFragment
+import com.example.demoapplication.ui.fragments.StatsFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     private var VIEW_PAGER_INDEX = 0;
@@ -73,6 +70,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         viewPagerAdapter.addFragment(StatsFragment(),"Stats")
         viewPagerAdapter.addFragment(EditFragment(),"Edit")
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 3
         viewPager.currentItem = VIEW_PAGER_INDEX
         viewPager.addOnPageChangeListener(this)
     }

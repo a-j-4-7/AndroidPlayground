@@ -1,5 +1,6 @@
 package com.example.demoapplication.network
 
+import com.example.demoapplication.data.entity.NoteEntity
 import com.example.demoapplication.data.models.DropDownResponse
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -17,6 +18,9 @@ interface RetrofitClient {
 
     @GET("61ecc9c9-7dea-4b66-9723-1c193d457c9e")
     suspend fun getDropdownValues():Response<DropDownResponse>
+
+    @GET("ae4a4953-9a7e-4a6f-a8d7-0f04ce2c6f54")
+    suspend fun fetchNotes():List<NoteEntity>
 
     @GET("733c828e-3dcb-45c1-a64b-cbd3ca3a1efb")
     fun getCountries():Call<JsonElement>

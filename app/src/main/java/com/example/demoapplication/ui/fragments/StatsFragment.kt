@@ -1,15 +1,14 @@
-package com.example.demoapplication
+package com.example.demoapplication.ui.fragments
 
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.demoapplication.R
 import com.example.demoapplication.ui.adapters.ProgressAdapter
 import com.example.demoapplication.ui.adapters.TestListAdapter
 import kotlinx.android.synthetic.main.fragment_stats.*
