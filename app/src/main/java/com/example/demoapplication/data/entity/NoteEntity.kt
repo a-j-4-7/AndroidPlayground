@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 data class NoteEntity(
 
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "id")
-    var id: String,
+    @ColumnInfo(name = "_id")
+    var _id: String,
 
-    @ColumnInfo(name = "createAt")
+    @ColumnInfo(name = "createdAt")
     var createdAt : String,
 
     @ColumnInfo(name = "title")

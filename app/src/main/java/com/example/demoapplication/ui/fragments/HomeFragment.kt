@@ -54,6 +54,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeChanges() {
+        homeVM._notesLiveDataAlt.observe(viewLifecycleOwner, Observer {
+            Log.d("TAG", "NOTES: "+it)
+        })
+
         homeVM._notesLiveData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Output.Loading -> {

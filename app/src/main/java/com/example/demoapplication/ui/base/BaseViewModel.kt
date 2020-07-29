@@ -1,8 +1,6 @@
 package com.example.demoapplication.ui.base
 
 import androidx.lifecycle.ViewModel
-import com.example.demoapplication.ui.BaseEvent
-import kotlinx.coroutines.CoroutineExceptionHandler
 
 
 abstract class BaseViewModel<T : BaseEvent> :ViewModel() {

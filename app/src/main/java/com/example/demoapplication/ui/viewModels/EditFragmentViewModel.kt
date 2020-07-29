@@ -7,15 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.demoapplication.data.entity.NoteEntity
 import com.example.demoapplication.data.entity.UserEntity
-import com.example.demoapplication.data.respository.NoteRepository
 import com.example.demoapplication.data.respository.UserRepository
-import com.example.demoapplication.ui.BaseEvent
+import com.example.demoapplication.ui.base.BaseEvent
 import com.example.demoapplication.ui.base.BaseViewModel
 import com.example.demoapplication.util.Output
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -64,7 +61,8 @@ class EditFragmentViewModel @ViewModelInject constructor(
         }
     }
 
-    sealed class EditFragmentEvent : BaseEvent{
+    sealed class EditFragmentEvent :
+        BaseEvent {
 
         data class AddUser(val userEntity: UserEntity) : EditFragmentEvent()
 

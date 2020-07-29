@@ -2,6 +2,8 @@ package com.example.demoapplication.di.modules
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.demoapplication.data.MyDatabase
 import com.example.demoapplication.data.dao.NoteDao
 import com.example.demoapplication.data.dao.UserDao
@@ -10,6 +12,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +26,12 @@ object DatabaseModule {
         context,
         MyDatabase::class.java,
         MyDatabase.DB_NAME
-    ).fallbackToDestructiveMigration().build()
+    ).addCallback(object : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+        }
+    } )
+        .fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

@@ -19,6 +19,7 @@ class NoteRepository constructor (
             kotlinx.coroutines.delay(1000)
             try {
                 val notes = retrofitClient.fetchNotes()
+                noteDao.upsertNotes(notes)
                 emit(Output.Success(notes))
             }catch (e:Exception){
                 emit(Output.Error(e))
@@ -26,5 +27,6 @@ class NoteRepository constructor (
         }
 
 
+    suspend fun fetchNotesAlt() = noteDao.fetchNotesWithIdAndDate()
 
 }

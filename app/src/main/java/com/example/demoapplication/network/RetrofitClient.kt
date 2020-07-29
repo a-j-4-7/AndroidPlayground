@@ -19,7 +19,7 @@ interface RetrofitClient {
     @GET("61ecc9c9-7dea-4b66-9723-1c193d457c9e")
     suspend fun getDropdownValues():Response<DropDownResponse>
 
-    @GET("ae4a4953-9a7e-4a6f-a8d7-0f04ce2c6f54")
+    @GET("f4f056b9-c042-4416-8608-a69fcee2ca7f")
     suspend fun fetchNotes():List<NoteEntity>
 
     @GET("733c828e-3dcb-45c1-a64b-cbd3ca3a1efb")
