@@ -1,61 +1,78 @@
 package com.example.demoapplication.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.demoapplication.R
 import com.example.demoapplication.data.entity.UserEntity
+import com.example.demoapplication.ui.activities.LocalizationTestActivity
+import com.example.demoapplication.ui.activities.MainActivity
+import com.example.demoapplication.ui.base.BaseFragment
 import com.example.demoapplication.ui.viewModels.EditFragmentViewModel
-import com.example.demoapplication.ui.viewModels.HomeFragmentViewModel
 import com.example.demoapplication.util.Output
+import com.example.demoapplication.util.onClick
+import com.zeugmasolutions.localehelper.Locales
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_edit.*
-import kotlinx.android.synthetic.main.fragment_edit.apiResultTextView
-import kotlinx.android.synthetic.main.fragment_edit.progressBar
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class EditFragment : Fragment() {
+class EditFragment : BaseFragment() {
 
     private val editFragmentVM: EditFragmentViewModel by viewModels()
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_edit, container, false)
-    }
+    override fun getLayout(): Int = R.layout.fragment_edit
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         editFragmentVM.handleEvent(EditFragmentViewModel.EditFragmentEvent.FetchUsers)
         this.observerLiveData();
         confirmBtn.setOnClickListener {
-            editFragmentVM.handleEvent(EditFragmentViewModel
-                .EditFragmentEvent.AddUser(
-                    UserEntity(
-                        name = etName.text.toString().trim(),
-                        address = etAddress.text.toString().trim())
-                ))
+            editFragmentVM.handleEvent(
+                EditFragmentViewModel
+                    .EditFragmentEvent.AddUser(
+                        UserEntity(
+                            name = etName.text.toString().trim(),
+                            address = etAddress.text.toString().trim()
+                        )
+                    )
+            )
         }
 
         confirmBtn.setOnLongClickListener{
-            editFragmentVM.handleEvent(EditFragmentViewModel.EditFragmentEvent.DeleteAllUsers)
+//            editFragmentVM.handleEvent(EditFragmentViewModel.EditFragmentEvent.DeleteAllUsers)
+            startActivity(Intent(requireContext(), LocalizationTestActivity::class.java))
             return@setOnLongClickListener true
+        }
+
+        lifecycleScope.launch {
+
+            btnEnglish.setOnClickListener{
+                Log.d("TAG", "onViewCreated: ")
+                (activity as MainActivity?)!!.updateLocale(Locale.ENGLISH)
+            }
+
+            btnPortuguese.setOnClickListener{
+                Log.d("TAG", "onViewCreated: ")
+                (activity as MainActivity?)!!.updateLocale(Locale("pt","PT"))
+            }
+
         }
     }
 
     private fun observerLiveData() {
-        editFragmentVM._userLiveData.observe(viewLifecycleOwner, Observer {output ->
-            when(output){
+        editFragmentVM._userLiveData.observe(viewLifecycleOwner, Observer { output ->
+            when (output) {
                 is Output.Loading -> progressBar.visibility = View.VISIBLE
 
                 is Output.Error -> {
@@ -65,13 +82,13 @@ class EditFragment : Fragment() {
 
                 is Output.Success -> {
                     progressBar.visibility = View.GONE
-                    if(output.data.isNotEmpty()){
+                    if (output.data.isNotEmpty()) {
                         var sb = StringBuffer()
-                        for (user in output.data){
-                            sb.append(user.name + " - " + user.address +"\n")
+                        for (user in output.data) {
+                            sb.append(user.name + " - " + user.address + "\n")
                         }
                         apiResultTextView.text = sb.toString()
-                    }else{
+                    } else {
                         apiResultTextView.text = "No Users found"
                     }
 

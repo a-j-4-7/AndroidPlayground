@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.demoapplication.R
 import com.example.demoapplication.data.models.DropDownResponse
 import com.example.demoapplication.network.RetrofitClient
+import com.example.demoapplication.ui.base.BaseActivity
 import com.example.demoapplication.ui.fragments.EditFragment
 import com.example.demoapplication.ui.fragments.HomeFragment
 import com.example.demoapplication.ui.fragments.StatsFragment
@@ -20,8 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     private var VIEW_PAGER_INDEX = 0;
 

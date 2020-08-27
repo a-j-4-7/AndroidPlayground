@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DemoApplication</string>
+    <string name="title_welcome">Bem-vinda</string>
+    <string name="title_edit_details">Editar Detalhes</string>
+    <string name="title_name">Nome</string>
+    <string name="title_address">Endereco</string>
+    <string name="action_confirm">Confirme</string>
+    <string name="title_dob">Data de nascimento</string>
+    <string name="title_localization">Localização</string>
+    <string name="msg_location">Testando alterações de localização em tempo de execução neste aplicativo.</string>
+</resources>

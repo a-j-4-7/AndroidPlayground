@@ -6,6 +6,10 @@ class SharedPrefsUtils constructor(
     val editor: SharedPreferences.Editor
 ) {
 
+    companion object{
+        const val KEY_LOCALE_LANGUAGE = "locale_language"
+    }
+
     fun saveToSharedPrefs(data: String) {
         editor.putString("KEY", data).commit()
     }
